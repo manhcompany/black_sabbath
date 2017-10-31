@@ -1,6 +1,6 @@
-from context.context import Context
-
 from context.session import Session
+
+from context.context import Context
 from storage.storage import SparkStorage
 
 

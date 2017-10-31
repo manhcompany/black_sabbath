@@ -1,6 +1,5 @@
 import decimal
 import simplejson
-import json
 
 
 class DecimalJSONEncoder(simplejson.JSONEncoder):
