@@ -27,27 +27,3 @@ class ParquetConfig(FileConfig):
 class AvroConfig(FileConfig):
     def __init__(self, source_path, target_path):
         super().__init__(source_path=source_path, target_path=target_path)
-
-
-class ElasticSearchConfig(Configuration):
-    __config = {}
-
-    def __init__(self, config):
-        super().__init__()
-        self.__config = config
-        self.host = config['host']
-        self.port = config['port']
-        self.access_key = config['access_key']
-        self.secret_key = config['secret_key']
-        self.region = config['region']
-
-
-class DynamoDBConfig(Configuration):
-    __config = {}
-
-    def __init__(self, config):
-        super().__init__()
-        self.__config = config
-
-    def get_config(self):
-        return self.__config

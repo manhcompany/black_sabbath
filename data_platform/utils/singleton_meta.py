@@ -1,5 +1,13 @@
 class SingletonMeta(type):
+    """
+    Singleton Meta
+    """
     def __init__(cls, *args, **kwargs):
+        """
+        Constructor
+        :param args:
+        :param kwargs:
+        """
         cls._instance = None
         super(SingletonMeta, cls).__init__(*args, **kwargs)
 

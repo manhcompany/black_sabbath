@@ -23,7 +23,7 @@ class Config:
 
     def get_config(self):
         """
-        get config dictionary
+        Get config dictionary
         :return: dictionary of config
         :rtype: dict
         """

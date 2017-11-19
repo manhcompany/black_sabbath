@@ -5,6 +5,9 @@ import os
 
 
 class Logger(object):
+    """
+    Logger
+    """
     def __init__(self, class_name):
         """
         constructor

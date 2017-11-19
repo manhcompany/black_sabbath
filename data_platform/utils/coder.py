@@ -30,8 +30,3 @@ class SHA256Encoder:
         hash_object = hashlib.sha256(input_string)
         hex_dig = hash_object.hexdigest()
         return hash_string == hex_dig
-
-
-# if __name__ == '__main__':
-#     id = "1803997396306904"
-#     print(SHA256Encoder.hash(id))

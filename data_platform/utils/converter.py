@@ -1,6 +1,7 @@
 import decimal
 import simplejson
-
+import time
+import datetime
 
 class DecimalJSONEncoder(simplejson.JSONEncoder):
 
@@ -40,3 +41,29 @@ class DictVerify:
         if temp is None:
             return default
         return temp
+
+
+class StringConverter:
+    """
+    String converter
+    """
+    @staticmethod
+    def convert_string2timestamp(str):
+        """
+        Convert string to timestamp
+        :param str: str
+        :return: float
+        """
+        return time.mktime(datetime.datetime.strptime(str, "%Y-%m-%d").timetuple())
+
+    @staticmethod
+    def convert_timestamp2string(timestamp):
+        """
+        Convert timestamp to string
+        :param timestamp: float
+        :return: string Y-m-d
+        """
+        if timestamp >= 0.0:
+            return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d')
+        else:
+            return None
