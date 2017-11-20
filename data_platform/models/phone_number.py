@@ -19,7 +19,10 @@ class PhoneNumber(Model):
         result.phone_number = data_list[0]
         result.activation_date = [data_list[1]]
         try:
-            result.deactivation_date = [data_list[2]]
+            if len(data_list[2]):
+                result.deactivation_date = [data_list[2]]
+            else:
+                result.deactivation_date = []
         except IndexError as e:
             result.deactivation_date = []
         return result
@@ -28,7 +31,7 @@ class PhoneNumber(Model):
     def add(x, y):
         result = PhoneNumber()
         result.phone_number = x.phone_number
-        result.activation_date = x.activation + y.activation
+        result.activation_date = x.activation_date + y.activation_date
         result.deactivation_date = x.deactivation_date + y.deactivation_date
         return result
 
@@ -36,7 +39,7 @@ class PhoneNumber(Model):
         return self
 
     def get_str(self):
-        return '%s,%s' % (self.phone_number, self.activation_date)
+        return '%s,%s' % (self.phone_number, self.actual_activation_date)
 
     def find_actual_activation(self):
         activation_timestamp = [StringConverter.convert_string2timestamp(i) for i in self.activation_date]
@@ -46,18 +49,22 @@ class PhoneNumber(Model):
         results = [t for t in activation_timestamp]
         i = 0
         j = 0
-        while i < len(activation_timestamp) or j < len(deactivation_timestamp):
+        while i < len(activation_timestamp) and j < len(deactivation_timestamp):
             if activation_timestamp[i] == deactivation_timestamp[j]:
                 results[i] = -1.0
                 i += 1
                 j += 1
+                continue
             if activation_timestamp[i] > deactivation_timestamp[j]:
                 j += 1
+                continue
             if activation_timestamp[i] < deactivation_timestamp[j]:
-                results[i] = -1.0
                 i += 1
+                continue
 
         index = len(results) - 1
         while results[index] == -1.0 and index > 0:
             index -= 1
         self.actual_activation_date = StringConverter.convert_timestamp2string(results[index])
+        self.activation_date = results
+        return self
