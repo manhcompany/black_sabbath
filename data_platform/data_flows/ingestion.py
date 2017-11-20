@@ -8,9 +8,9 @@ class Ingestion(DataFlow):
         super().__init__(self.handle, **kwargs)
 
     def start(self, data):
-        super().start()
+        return super().start(data)
 
-    def handle(self, data):
+    def handle(self, data, params):
         return data.map(lambda x: self.model.load(x))\
             .filter(lambda x: x is not None)\
             .map(lambda x: x.transform())
