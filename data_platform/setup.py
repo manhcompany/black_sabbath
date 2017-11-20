@@ -2,11 +2,12 @@ from distutils.core import setup
 
 setup(
     name='black_sabbath',
-    version='0.1',
-    packages=['context', 'storage', 'utils'],
+    version='',
+    packages=['utils', 'context', 'storage', '_deamons', 'data_flows', '_businesses', '_businesses.flows',
+              '_businesses.models'],
     url='',
     license='',
-    author='manhdoi',
+    author='manh',
     author_email='',
     description=''
 )
