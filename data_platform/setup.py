@@ -8,5 +8,5 @@ setup(
     license='',
     author='manhdoi',
     author_email='',
-    description=''
+    description='', requires=['pyspark']
 )

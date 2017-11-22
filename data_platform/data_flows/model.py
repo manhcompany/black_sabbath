@@ -5,7 +5,8 @@ class Model(dict):
         """
         self.__dict__ = self
 
-    def load(self, data):
+    @staticmethod
+    def load(data):
         """
         abstract: create a business from data
         :param data: input data
