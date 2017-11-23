@@ -13,7 +13,9 @@ if __name__ == '__main__':
     source_storage = StorageFactory.get(FileConfig(source_path=source_path, target_path=''))
     target_storage = StorageFactory.get(ParquetConfig(source_path='', target_path=target_path))
     deduplication_storage = StorageFactory.get(ParquetConfig(source_path=deduplication_path, target_path=''))
-    deduplication = ExternalDeDuplication(parquet_storage=deduplication_storage, key="call_id")
+    external_deduplication = ExternalDeDuplication(parquet_storage=deduplication_storage, key="call_id")
 
-    flow = TransformCallHistoryFlow(source=source_storage, target=target_storage, deduplication=deduplication)
+    flow = TransformCallHistoryFlow(source=source_storage,
+                                    target=target_storage,
+                                    deduplication=external_deduplication)
     flow.start()

@@ -1,5 +1,5 @@
 from data_flows.transformation import Transformation
-from models.call_history import CallHistory
+from models.call_history import CallHistory, CallHistoryCleaning, CallHistoryInternalDeDuplication
 
 
 class TransformCallHistoryFlow:
@@ -11,6 +11,11 @@ class TransformCallHistoryFlow:
     def start(self):
         data = self.source.load()
         model = CallHistory()
-        transformation = Transformation(model=model, external_deduplication=self.deduplication)
+        cleaning = CallHistoryCleaning()
+        internal_deduplication = CallHistoryInternalDeDuplication()
+        transformation = Transformation(model=model,
+                                        external_deduplication=self.deduplication,
+                                        cleaning=cleaning,
+                                        internal_deduplication=internal_deduplication)
         result = transformation.start(data)
         self.target.save(data=result, coalesce=1)

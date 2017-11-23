@@ -1,3 +1,7 @@
+from data_flows.internal_deduplication import InternalDeDuplication
+
+from data_flows.cleaning import Cleaning
+
 from data_flows.model import Model
 from utils.coder import SHA256Encoder
 from utils.converter import StringConverter
@@ -27,7 +31,7 @@ class CallHistory(Model):
             result.call_duration = int(data_split[3])
             result.imei = data_split[4]
             result.location = data_split[5]
-        except IndexError as e:
+        except IndexError:
             return None
         return result
 
@@ -35,7 +39,8 @@ class CallHistory(Model):
         try:
             self.start_timestamp = StringConverter.convert_string2timestamp(self.start_time, "%d/%m/%Y %H:%M:%S")
             self.hour = CallHistory.get_hour_from_datetime(self.start_time)
-            self.call_id = SHA256Encoder.hash("%s-%s-%s" % (self.from_phone_number, self.to_phone_number, self.start_time))
+            self.call_id = SHA256Encoder\
+                .hash("%s-%s-%s" % (self.from_phone_number, self.to_phone_number, self.start_time))
         except Exception:
             return None
         return self
@@ -50,3 +55,19 @@ class CallHistory(Model):
     @staticmethod
     def get_hour_from_datetime(datetime_str):
         return int(datetime_str.split(" ")[1].split(":")[0])
+
+
+class CallHistoryCleaning(Cleaning):
+    def __init__(self):
+        super().__init__()
+
+    def cleaning(self, df):
+        return df.dropna()
+
+
+class CallHistoryInternalDeDuplication(InternalDeDuplication):
+    def __init__(self):
+        super().__init__()
+
+    def deduplicate(self, df):
+        return df.drop_duplicates()
