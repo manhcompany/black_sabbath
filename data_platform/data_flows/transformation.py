@@ -1,10 +1,14 @@
+from data_flows.internal_deduplication import InternalDeDuplication
+
+from data_flows.cleaning import Cleaning
+
 from context.session import Session
 from pyspark.sql import Row
 
 
 class Transformation:
-    def __init__(self, model, external_deduplication=None, cleaning=None, internal_deduplication=None):
-
+    def __init__(self, model, external_deduplication=None,
+                 cleaning=Cleaning(), internal_deduplication=InternalDeDuplication()):
         self.__model = model
         self.__external_deduplication = external_deduplication
         self.__cleaning = cleaning
@@ -27,13 +31,9 @@ class Transformation:
         return df
 
     def cleaning(self, df):
-        if self.__cleaning is None:
-            return df
         return self.__cleaning.cleaning(df)
 
     def internal_deduplicate(self, df):
-        if self.__internal_deduplication is None:
-            return df
         return self.__internal_deduplication.deduplicate(df)
 
     def external_deduplicate(self, rdd_data):

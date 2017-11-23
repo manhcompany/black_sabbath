@@ -4,4 +4,4 @@ class DataFlow:
         self.params = kwargs
 
     def start(self, data):
-        return self.handle(data, self.params)
+        return self.handle(data, **self.params)
