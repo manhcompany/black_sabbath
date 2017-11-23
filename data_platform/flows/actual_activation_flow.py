@@ -1,4 +1,4 @@
-from data_flows.ingestion import Ingestion
+from data_flows.function import Function
 from models.phone_number import PhoneNumber
 
 
@@ -10,7 +10,7 @@ class ActualActivationFlow:
     def start(self):
         data = self.source.load()
         model = PhoneNumber()
-        ingestion = Ingestion(model=model)
+        ingestion = Function(model=model)
         rdd_data = ingestion.start(data)
         print(rdd_data.collect())
         result_data = ActualActivationFlow.find_actual_activation_flow(rdd_data)

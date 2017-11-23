@@ -1,7 +1,7 @@
 from data_flows.data_flow import DataFlow
 
 
-class Ingestion(DataFlow):
+class Function(DataFlow):
     def __init__(self, model, **kwargs):
         self.model = model
         self.param = kwargs

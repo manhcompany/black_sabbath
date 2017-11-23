@@ -1,7 +1,7 @@
 from pyspark.sql.utils import AnalysisException
 
 
-class DeDuplication:
+class ExternalDeDuplication:
     def __init__(self, parquet_storage, key='id'):
         """
         Constructor

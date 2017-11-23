@@ -11,6 +11,6 @@ class TransformCallHistoryFlow:
     def start(self):
         data = self.source.load()
         model = CallHistory()
-        transformation = Transformation(model=model, deduplication=self.deduplication)
+        transformation = Transformation(model=model, external_deduplication=self.deduplication)
         result = transformation.start(data)
         self.target.save(data=result, coalesce=1)
