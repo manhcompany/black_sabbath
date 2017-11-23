@@ -2,6 +2,13 @@ from pyspark.sql.utils import AnalysisException
 
 
 class ExternalDeDuplication:
+    """
+    Deduplication with a file.
+    Example:
+        Day 1: we add A, B, C to f file
+        Day 2: we add A, D, E to f file
+        If we use ExternalDeDuplication, we will add D, E to f file on day 2, not add A
+    """
     def __init__(self, parquet_storage, key='id'):
         """
         Constructor

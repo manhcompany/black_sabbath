@@ -8,6 +8,9 @@ from utils.converter import StringConverter
 
 
 class CallHistory(Model):
+    """
+    Call history model
+    """
     def __init__(self):
         super().__init__()
         self.from_phone_number = ''
@@ -22,6 +25,11 @@ class CallHistory(Model):
 
     @staticmethod
     def load(data):
+        """
+        Create Call history from str
+        :param data: str
+        :return:
+        """
         data_split = data.split(';')
         result = CallHistory()
         try:
@@ -36,6 +44,10 @@ class CallHistory(Model):
         return result
 
     def transform(self):
+        """
+        Transform call history, add call_id, hour, and start timestamp
+        :return:
+        """
         try:
             self.start_timestamp = StringConverter.convert_string2timestamp(self.start_time, "%d/%m/%Y %H:%M:%S")
             self.hour = CallHistory.get_hour_from_datetime(self.start_time)
@@ -46,26 +58,45 @@ class CallHistory(Model):
         return self
 
     def get_id(self):
+        """
+        Get call id. Call id is hashed by SHA256 of from phone number, to phone number and start time
+        :return:
+        """
         return self.call_id
 
     def get_str(self):
-        # TODO
         pass
 
     @staticmethod
     def get_hour_from_datetime(datetime_str):
+        """
+        Get hour from start time
+        :param datetime_str:
+        :return: hour
+        """
         return int(datetime_str.split(" ")[1].split(":")[0])
 
 
 class CallHistoryCleaning(Cleaning):
+    """
+    Call history cleaning
+    """
     def __init__(self):
         super().__init__()
 
     def cleaning(self, df):
+        """
+        Drop None Rows
+        :param df:
+        :return:
+        """
         return df.dropna()
 
 
 class CallHistoryInternalDeDuplication(InternalDeDuplication):
+    """
+    Drop duplicate
+    """
     def __init__(self):
         super().__init__()
 

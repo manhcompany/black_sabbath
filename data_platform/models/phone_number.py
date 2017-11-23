@@ -3,6 +3,9 @@ from utils.converter import StringConverter
 
 
 class PhoneNumber(Model):
+    """
+    Phone number model
+    """
     def __init__(self):
         super().__init__()
         self.phone_number = ''
@@ -12,6 +15,12 @@ class PhoneNumber(Model):
 
     @staticmethod
     def load(data, **kwargs):
+        """
+        Create a phone number from string
+        :param data: str
+        :param kwargs: parameters
+        :return: PhoneNumber
+        """
         data_list = data.split(',')
         if len(data_list) < 2:
             return None
@@ -23,12 +32,18 @@ class PhoneNumber(Model):
                 result.deactivation_date = [data_list[2]]
             else:
                 result.deactivation_date = []
-        except IndexError as e:
+        except IndexError:
             result.deactivation_date = []
         return result
 
     @staticmethod
     def add(x, y):
+        """
+        Append activation date and deactivation date of PhoneNumber
+        :param x:
+        :param y:
+        :return:
+        """
         result = PhoneNumber()
         result.phone_number = x.phone_number
         result.activation_date = x.activation_date + y.activation_date
@@ -36,12 +51,24 @@ class PhoneNumber(Model):
         return result
 
     def transform(self):
+        """
+        Transform PhoneNumber
+        :return:
+        """
         return self
 
     def get_str(self):
+        """
+        Get string of PhoneNumber
+        :return:
+        """
         return '%s,%s' % (self.phone_number, self.actual_activation_date)
 
     def find_actual_activation(self):
+        """
+        Find actual activation of PhoneNumber
+        :return: actual activation
+        """
         activation_timestamp = [StringConverter.convert_string2timestamp(i) for i in self.activation_date]
         deactivation_timestamp = [StringConverter.convert_string2timestamp(i) for i in self.deactivation_date]
         activation_timestamp.sort()
