@@ -1,0 +1,2 @@
+black-sabbath==0.0.0
+simplejson==3.13.0

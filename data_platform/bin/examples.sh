@@ -1,4 +1,4 @@
+#!/usr/bin/env bash
 spark-submit deamons/transform_call_history_flow_deamon.py /home/manh/Documents/PycharmProjects/black_sabbath/data_platform/z_datasets/call_histories_20151201.csv /home/manh/Documents/PycharmProjects/black_sabbath/data_platform/z_datasets/call_history_output_transformed.parquet /home/manh/Documents/PycharmProjects/black_sabbath/data_platform/z_datasets/call_history_output_transformed.parquet
-
 
 spark-submit deamons/aggregate_call_history_flow_deamon.py z_datasets/call_history_output_transformed.parquet z_datasets/call_history_output_transformed_aggregate_number_of_call_in_working_hour.parquet aggregate_number_of_call_in_working_hour

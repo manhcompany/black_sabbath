@@ -21,9 +21,9 @@ class Function(DataFlow):
         :param data:
         :return:
         """
-        return super().start(data)
+        return self.handle(data)
 
-    def handle(self, data, params):
+    def handle(self, data, **kwargs):
         """
         Handle function, which transforming data
         :param data: data
