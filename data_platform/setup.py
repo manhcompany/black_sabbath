@@ -2,11 +2,11 @@ from distutils.core import setup
 
 setup(
     name='black_sabbath',
-    version='0.1',
-    packages=['context', 'storage', 'utils'],
+    version='',
+    packages=['utils', 'flows', 'models', 'context', 'storage', 'deamons', 'data_flows', 'queries', 'z_unit_test'],
     url='',
     license='',
     author='manhdoi',
     author_email='',
-    description=''
+    description='', requires=['pyspark', 'simplejson']
 )
